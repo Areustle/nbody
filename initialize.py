@@ -20,7 +20,7 @@ def initialize(N, xp=np):
 
 
 def initialize_spiral(N, xp=np):
-    x = xp.random.normal(0, 50, (N, 3))
+    x = xp.random.normal(0, 66, (N, 3))
     x[:, 2] *= 0.1
 
     v = x[:, xp.array((1, 0, 2))]

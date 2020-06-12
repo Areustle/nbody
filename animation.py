@@ -5,9 +5,9 @@ from matplotlib.animation import FuncAnimation
 
 def equalize_step(seq, interval, maximum=0):
     """
-    From a given time sequence return a subsequence whose entries closest
-    match the inpu tinterval between elements.
-    Used to smooth out and drop frames from animations an plots
+    From a given time sequence return a subsequence whose entries most nearly
+    match the input interval between elements.  Used to smooth out and drop
+    frames from animations and plots
     """
 
     if maximum == 0:
@@ -28,7 +28,7 @@ def equalize_step(seq, interval, maximum=0):
     return ret
 
 
-def animate_n_body(sol, n):
+def animate_n_body(sol, n, name=None):
     ts = sol['t']
     ys = sol['y']
     # print(ts.shape, ys.shape)
@@ -51,7 +51,10 @@ def animate_n_body(sol, n):
         ln.set_3d_properties(zdata)
         return ln,
 
-    FuncAnimation(fig, update, frames=equalize_step(ts, 0.1), interval=50,
-                  blit=True)
+    ani = FuncAnimation(fig, update, frames=equalize_step(ts, 0.1),
+                        interval=50, blit=True)
+    if name:
+        ani.save(f'animations/{name}.mp4', fps=30)
+
     plt.show()
     plt.clf()
