@@ -1,5 +1,5 @@
 import numpy as np
-import cupy as cp
+# import cupy as cp
 
 from scipy.linalg.blas import zhpr, dspr2, zhpmv
 
@@ -21,13 +21,13 @@ def loops(x, m):
 
 
 def vec(x, m):
-    xp = cp.get_array_module(x)
+    # xp = cp.get_array_module(x)
     M = m.reshape((1, -1, 1))*m.reshape((-1, 1, 1))
     d = x.reshape((1, -1, 3)) - x.reshape((-1, 1, 3))
-    r = xp.linalg.norm(d, axis=2)
+    r = np.linalg.norm(d, axis=2)
     # Avoid divide by zero warnings
     r[r == 0] = 1
-    a = (M*d)/xp.expand_dims(r, 2)**3
+    a = (M*d)/np.expand_dims(r, 2)**3
     return a.sum(axis=1)/m.reshape(-1, 1)
 
 
